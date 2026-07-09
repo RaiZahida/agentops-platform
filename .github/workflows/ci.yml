@@ -43,9 +43,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ env.OWNER_LC }}/agentops-platform:latest \
-          docker build  -t ghcr.io/${{ env.OWNER_LC }}/agentops-platform:${{ env.SHORT_SHA }} \
-          .
+          docker build \
+            -t ghcr.io/${{ env.OWNER_LC }}/agentops-platform:latest \
+            -t ghcr.io/${{ env.OWNER_LC }}/agentops-platform:${{ env.SHORT_SHA }} \
+             .
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
