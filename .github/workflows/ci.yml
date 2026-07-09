@@ -27,3 +27,7 @@ jobs:
         env:
            GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: pytest
+
+      - name: Build Docker image
+        run: |
+          docker build -t agentops-platform:latest .
