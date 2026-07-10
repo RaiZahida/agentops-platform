@@ -1,9 +1,8 @@
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
+
 from app.config import settings
 from app.routes.chat import router as chat_router
-
-
-
 
 app = FastAPI(
     title="AgentOps Platform",
@@ -13,19 +12,8 @@ app = FastAPI(
 
 app.include_router(chat_router)
 
-@app.get("/")
-def root():
-    return {
-        "message": " AgentOps Platform is running!"
-    }
-
-
-@app.get("/health")
-def health():
-    return {
-        "status": "healthy",
-        "service": "agentops-platform"
-    }
+# Enable Prometheus metrics
+Instrumentator().instrument(app).expose(app)
 
 @app.get("/")
 def root():
@@ -33,4 +21,11 @@ def root():
         "application": settings.APP_NAME,
         "version": settings.APP_VERSION,
         "status": "running",
+    }
+
+@app.get("/health")
+def health():
+    return {
+        "status": "healthy",
+        "service": "agentops-platform",
     }
