@@ -4,4 +4,9 @@ def test_root_endpoint():
     response = client.get("/")
 
     assert response.status_code == 200
-    assert "message" in response.json()
+
+    data = response.json()
+
+    assert "application" in data
+    assert "version" in data
+    assert "status" in data
