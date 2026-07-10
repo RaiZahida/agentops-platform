@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: agentops-pod
+
+spec:
+  containers:
+    - name: agentops
+      image: ghcr.io/raizahida/agentops-platform:latest
+      imagePullPolicy: Always
+
+      env:
+        - name: GROQ_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: groq-secret
+              key: GROQ_API_KEY
+
+      ports:
+        - containerPort: 8000
