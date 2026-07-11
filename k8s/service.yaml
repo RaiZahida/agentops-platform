@@ -3,6 +3,8 @@ kind: Service
 
 metadata:
   name: agentops-service
+  labels:
+    app: agentops
 
 spec:
   type: NodePort
@@ -11,6 +13,8 @@ spec:
     app: agentops
 
   ports:
-    - port: 8000
+    - name: http
+      protocol: TCP
+      port: 8000
       targetPort: 8000
       nodePort: 30080
